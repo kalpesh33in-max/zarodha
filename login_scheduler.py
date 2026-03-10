@@ -1,6 +1,6 @@
-from kiteconnect import KiteConnect
 import schedule
 import time
+from kiteconnect import KiteConnect
 from config import API_KEY, LOGIN_TIME
 from telegram_bot import send
 
@@ -10,22 +10,18 @@ def send_login():
 
     login_url = kite.login_url()
 
-    msg = f"""
+    send(f"""
 🔐 Zerodha Login Required
 
 Click link below:
 
 {login_url}
+""")
 
-After login scanner starts automatically.
-"""
+def start():
 
-    send(msg)
+    schedule.every().day.at(LOGIN_TIME).do(send_login)
 
-schedule.every().day.at(LOGIN_TIME).do(send_login)
-
-while True:
-
-    schedule.run_pending()
-
-    time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
