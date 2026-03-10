@@ -1,0 +1,6 @@
+kiteconnect
+flask
+requests
+schedule
+pandas
+websocket-client
